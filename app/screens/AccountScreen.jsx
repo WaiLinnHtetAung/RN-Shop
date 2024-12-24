@@ -4,6 +4,9 @@ import Screen from '../components/Screen';
 import colors from '../configs/colors';
 import ListItem from '../components/lists/ListItem';
 import Icon from '../components/Icon';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import routes from '../navigation/routes';
 
 const menuItems = [
     {
@@ -19,41 +22,46 @@ const menuItems = [
         name: "email",
         backgroundColor: colors.secondary,
       },
+      targetScreen: routes.MESSAGES
     },
   ];
 
 const AccountScreen = () => {
+  const navigation = useNavigation();
   return (
-    <Screen style={styles.screen}>
-        <View style={styles.container}>
-            <ListItem 
-                title="Mosh Hamedani"
-                subTitle="bHt2F@example.com"
-                image={require("../../assets/mosh.jpg")}
-            />
-        </View>
-        <View style={styles.container}>
-            <FlatList
-                data={menuItems}
-                keyExtractor={(menuItem) => menuItem.title}
-                renderItem={({ item }) => (
-                <ListItem
-                    title={item.title}
-                    IconComponent={
-                    <Icon
-                        name={item.icon.name}
-                        backgroundColor={item.icon.backgroundColor}
-                    />
-                    }
-                />
-                )}
-            />
-        </View>
-        <ListItem
-            title="Log Out"
-            IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-        />
-    </Screen>
+    <GestureHandlerRootView>
+      <Screen style={styles.screen}>
+          <View style={styles.container}>
+              <ListItem 
+                  title="Mosh Hamedani"
+                  subTitle="bHt2F@example.com"
+                  image={require("../../assets/mosh.jpg")}
+              />
+          </View>
+          <View style={styles.container}>
+              <FlatList
+                  data={menuItems}
+                  keyExtractor={(menuItem) => menuItem.title}
+                  renderItem={({ item }) => (
+                  <ListItem
+                      title={item.title}
+                      IconComponent={
+                        <Icon
+                            name={item.icon.name}
+                            backgroundColor={item.icon.backgroundColor}
+                        />
+                      }
+                      onPress={() => navigation.navigate(item.targetScreen)}
+                  />
+                  )}
+              />
+          </View>
+          <ListItem
+              title="Log Out"
+              IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+          />
+      </Screen>
+    </GestureHandlerRootView>
   )
 }
 
@@ -61,7 +69,8 @@ export default AccountScreen
 
 const styles = StyleSheet.create({
     screen: {
-        backgroundColor: colors.light
+        backgroundColor: colors.light,
+        paddingTop: 0
     },
     container: {
         marginVertical: 20

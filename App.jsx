@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
-import Screen from "./app/components/Screen";
-import ListEditScreen from "./app/screens/ListEditScreen";
+import { Button, Text } from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { createStaticNavigation, useNavigation } from "@react-navigation/native";
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import NavigationTheme from "./app/navigation/NavigationTheme";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 
+
+ 
 export default function App() {
-
-
   return (
-    <Screen >
-      <ListEditScreen />
-    </Screen>
+    <AppNavigator theme={NavigationTheme} />
   );
 }
