@@ -12,7 +12,7 @@ function ListingDetailsScreen({ route }) {
   return (
     <GestureHandlerRootView>
         <View>
-            <Image style={styles.image} source={listing.image} />
+            <Image style={styles.image} source={{uri: listing.image}} />
             <View style={styles.detailsContainer}>
                 <Text style={styles.title}>{listing.title}</Text>
                 <Text style={styles.price}>${listing.price}</Text>
