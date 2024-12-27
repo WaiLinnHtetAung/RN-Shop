@@ -32,9 +32,7 @@
       }
     },
     "owner": "aremono",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/8ca7ba3d-9643-4ffd-ae14-94278676961e"
     },

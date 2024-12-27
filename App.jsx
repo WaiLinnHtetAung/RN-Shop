@@ -8,11 +8,15 @@ import { useCallback, useEffect, useState } from "react";
 import AuthContext from "./app/context/useAuthContext";
 import * as SplashScreen from "expo-splash-screen";
 import { View } from "react-native";
+import { usePushNotification } from "./app/utility/usePushNotification";
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [user, setUser] = useState();
   const [appIsReady, setAppIsReady] = useState(false);
+
+  const { expoPushToken , notification} = usePushNotification()
+  const data = JSON.stringify(notification, undefined, 2);
 
   const getAuthUser = async () => {
     try {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "274232642003",
+    "project_id": "expo-f77dc",
+    "storage_bucket": "expo-f77dc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274232642003:android:fc4c4caf3be344acef0726",
+        "android_client_info": {
+          "package_name": "com.aremono.myshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxJXwbd2LpyrnreJYP-bkMCk6mR7l12oY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
