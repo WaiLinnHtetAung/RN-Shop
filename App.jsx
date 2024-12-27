@@ -1,18 +1,55 @@
-import { Button, Text } from "react-native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { createStaticNavigation, useNavigation } from "@react-navigation/native";
-
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AuthNavigator from "./app/navigation/AuthNavigator";
 import NavigationTheme from "./app/navigation/NavigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 
+import authUserStorage from "./app/context/storage";
+import OfflineNotice from "./app/components/OfflineNotice";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import { useCallback, useEffect, useState } from "react";
+import AuthContext from "./app/context/useAuthContext";
+import * as SplashScreen from "expo-splash-screen";
+import { View } from "react-native";
 
-
- 
+SplashScreen.preventAutoHideAsync();
 export default function App() {
+  const [user, setUser] = useState();
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  const getAuthUser = async () => {
+    try {
+      const user = await authUserStorage.getAuthUser();
+      if (!user) return;
+      setUser(user);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAppIsReady(true);
+    }
+  };
+
+  useEffect(() => {
+    getAuthUser();
+  }, []);
+
+  const onLayoutRootView = useCallback(() => {
+    if (appIsReady) {
+      SplashScreen.hide();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <AppNavigator theme={NavigationTheme} />
+    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <OfflineNotice />
+        {user ? (
+          <AppNavigator theme={NavigationTheme} />
+        ) : (
+          <AuthNavigator theme={NavigationTheme} />
+        )}
+      </AuthContext.Provider>
+    </View>
   );
 }

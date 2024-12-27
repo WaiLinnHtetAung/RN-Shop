@@ -7,6 +7,7 @@ import Icon from '../components/Icon';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import routes from '../navigation/routes';
+import useAuth from '../auth/useAuth';
 
 const menuItems = [
     {
@@ -28,13 +29,15 @@ const menuItems = [
 
 const AccountScreen = () => {
   const navigation = useNavigation();
+  const {user, logout} = useAuth();
+
   return (
     <GestureHandlerRootView>
       <Screen style={styles.screen}>
           <View style={styles.container}>
               <ListItem 
-                  title="Mosh Hamedani"
-                  subTitle="bHt2F@example.com"
+                  title={user.name}
+                  subTitle={user.email}
                   image={require("../../assets/mosh.jpg")}
               />
           </View>
@@ -59,6 +62,7 @@ const AccountScreen = () => {
           <ListItem
               title="Log Out"
               IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+              onPress={() => logout()}
           />
       </Screen>
     </GestureHandlerRootView>
